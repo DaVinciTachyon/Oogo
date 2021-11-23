@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  ogoo-database:
+    container_name: ogoo-database
+    image: mysql:8.0.25
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: 'ogoo'
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    volumes:
+      - database:/var/lib/mysql
+    networks:
+      - ogoo-network
+
+volumes:
+  database:
+
+networks:
+  ogoo-network:
+    driver: bridge
